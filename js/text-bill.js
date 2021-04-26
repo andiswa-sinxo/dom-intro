@@ -12,9 +12,9 @@ var smsTotal = 0;
 //add an event listener for when the add button is pressed
 function textBillTotal(){
     // get the value entered in the billType textfield
-    var billTypeEntered = billTypeText.value.trim();
+    var billTypeEntered = billTypeTextElement.value.trim();
     // update the correct total
-    if (billTypeEntered === "bill"){
+    if (billTypeEntered === "call"){
         callsTotal += 2.75
     }
     else if (billTypeEntered === "sms"){
@@ -22,20 +22,20 @@ function textBillTotal(){
     }
     
     //update the totals that is displayed on the screen.
-    callsTotalElement.innerHTML = callsTotal.toFixed(2);
-    smsTotalElem.innerHTML = smsTotal.toFixed(2);
-    var totalCost = callsTotal + smsTotal;
-    totalCostElement.innerHTML = totalCost.toFixed(2);
-    if (totalCost >= 50){
+    callTotalOneElement.innerHTML = callsTotal.toFixed(2);
+    smsTotalOneElement.innerHTML = smsTotal.toFixed(2);
+    var totalOne = callsTotal + smsTotal;
+    totalOneElement.innerHTML = totalOne.toFixed(2);
+    if (totalOne >= 50){
         // adding the danger class will make the text red
-        totalCostElement.classList.add("danger");
+        totalOneElement.classList.add("danger");
     }
-    else if (totalCost >= 30){
-        totalCostElement.classList.add("warning");
+    else if (totalOne >= 30){
+        totalOneElement.classList.add("warning");
     }
 }
 
-textTotalAddBtn.addEventListener('click', textBillTotal);
+addToBillBtnElement.addEventListener('click', textBillTotal);
 
 //in the event listener check if the value in the bill type textbox is 'sms' or 'call'
 // * add the appropriate value to the running total
