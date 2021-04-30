@@ -2,7 +2,7 @@
 var billItemTypeWithSettings = document.querySelector(".billItemTypeWithSettings");
 var callCostSetting = document.querySelector(".callCostSetting");
 var smsCostSetting = document.querySelector(".smsCostSetting");
-var warningLevelSetting = document.querySelector(".smsCostSetting");
+var warningLevelSetting = document.querySelector(".warningLevelSetting");
 var criticalLevelSetting = document.querySelector(".criticalLevelSetting");
 // get refences to all the settings fields
 var callTotalSettings = document.querySelector(".callTotalSettings");
@@ -55,18 +55,19 @@ function settingsBillTotal(){
 radioBtn.addEventListener('click',settingsBillTotal);
 
 function colorChange(){
-    if (total < warningLevelSettingReference){
-        totalSettings.classList.remove("danger");
+    if (total == criticalLevelSettingReference){
+        totalSettings.classList.add("danger");
         totalSettings.classList.remove("warning");
     }
     else if (total >= warningLevelSettingReference && total < criticalLevelSettingReference){
         totalSettings.classList.remove("danger");
         totalSettings.classList.add("warning");
     }
-    else if (total == criticalLevelSettingReference){
-        totalSettings.classList.add("danger");
+    else if (total < warningLevelSettingReference){
+        totalSettings.classList.remove("danger");
         totalSettings.classList.remove("warning");
     }
+   
 
 }
 //in the event listener get the value from the billItemTypeRadio radio buttons
