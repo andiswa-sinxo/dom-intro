@@ -28,6 +28,8 @@ updateSettings.addEventListener('click', function(){
     smsCostSettingReference= Number(smsCostSetting.value);
     warningLevelSettingReference= warningLevelSetting.value;
     criticalLevelSettingReference= Number(criticalLevelSetting.value);
+
+    colorChange()
 });
 // function
 function settingsBillTotal(){
@@ -49,13 +51,13 @@ function settingsBillTotal(){
    callTotalSettings.innerHTML = callCost.toFixed(2);
    smsTotalSettings.innerHTML = smsCost.toFixed(2);
    totalSettings.innerHTML = total.toFixed(2);
-   colorChange(total);
+   colorChange()
 }
 //add an event listener for when the add button is pressed
 radioBtn.addEventListener('click',settingsBillTotal);
 
 function colorChange(){
-    if (total == criticalLevelSettingReference){
+    if (total === criticalLevelSettingReference){
         totalSettings.classList.add("danger");
         totalSettings.classList.remove("warning");
     }
@@ -65,7 +67,7 @@ function colorChange(){
     }
     else if (total < warningLevelSettingReference){
         totalSettings.classList.remove("danger");
-        totalSettings.classList.remove("warning");
+        totalSettings.classList.remove("danger");
     }
    
 

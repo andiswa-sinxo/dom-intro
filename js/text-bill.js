@@ -6,8 +6,8 @@ var callTotalOneElement = document.querySelector(".callTotalOne");
 var smsTotalOneElement = document.querySelector(".smsTotalOne");
 var totalOneElement = document.querySelector(".totalOne");
 //create a variable that will keep track of the total bill
-var callsTotal = 0;
-var smsTotal = 0;
+var callsTotal = 0.00;
+var smsTotal = 0.00;
 
 //add an event listener for when the add button is pressed
 function textBillTotal(){
