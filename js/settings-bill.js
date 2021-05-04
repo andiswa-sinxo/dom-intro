@@ -57,7 +57,7 @@ function settingsBillTotal(){
 radioBtn.addEventListener('click',settingsBillTotal);
 
 function colorChange(){
-    if (total === criticalLevelSettingReference){
+    if (total >= criticalLevelSettingReference){
         totalSettings.classList.add("danger");
         totalSettings.classList.remove("warning");
     }
