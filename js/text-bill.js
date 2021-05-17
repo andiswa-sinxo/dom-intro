@@ -6,33 +6,27 @@ var callTotalOneElement = document.querySelector(".callTotalOne");
 var smsTotalOneElement = document.querySelector(".smsTotalOne");
 var totalOneElement = document.querySelector(".totalOne");
 //create a variable that will keep track of the total bill
-var callsTotal = 0.00;
-var smsTotal = 0.00;
-
+var instaText = textInputBill()
 //add an event listener for when the add button is pressed
+
 function textBillTotal(){
     // get the value entered in the billType textfield
     var billTypeEntered = billTypeTextElement.value.trim();
-    // update the correct total
-    if (billTypeEntered === "call"){
-        callsTotal += 2.75
-    }
-    else if (billTypeEntered === "sms"){
-        smsTotal += 0.75;
-    }
+   
+    instaText.textBillTotal(billTypeEntered)
     
     //update the totals that is displayed on the screen.
-    callTotalOneElement.innerHTML = callsTotal.toFixed(2);
-    smsTotalOneElement.innerHTML = smsTotal.toFixed(2);
-    var totalOne = callsTotal + smsTotal;
-    totalOneElement.innerHTML = totalOne.toFixed(2);
-    if (totalOne >= 50){
+    callTotalOneElement.innerHTML = instaText.enterCallTotal().toFixed(2);
+    smsTotalOneElement.innerHTML = instaText.enterSmsTotal().toFixed(2);
+    
+    totalOneElement.innerHTML = instaText.getTotalText().toFixed(2);
         // adding the danger class will make the text red
-        totalOneElement.classList.add("danger");
-    }
-    else if (totalOne >= 30){
-        totalOneElement.classList.add("warning");
-    }
+        totalOneElement.classList.remove("critical");
+    // }
+        totalOneElement.classList.remove("warning");
+    
+        totalOneElement.classList.add(instaText.warningCriticalLevel())
+    // }
 }
 
 addToBillBtnElement.addEventListener('click', textBillTotal);

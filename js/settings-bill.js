@@ -13,21 +13,23 @@ var radioBtn = document.querySelector(".radioBtn");
 //get a reference to the 'Update settings' button
 var updateSettings = document.querySelector(".updateSettings");
 // create a variables that will keep track of all the settings
-var callCostSettingReference = 0;
-var smsCostSettingReference = 0;
-var warningLevelSettingReference = 0;
-var criticalLevelSettingReference = 0;
+// var callCostSettingReference = 0;
+// var smsCostSettingReference = 0;
+// var warningLevelSettingReference = 0;
+// var criticalLevelSettingReference = 0;
 
 // create a variables that will keep track of all three totals.
-var callCost = 0;
-var smsCost = 0;
-var total = 0;
+// var callCost = 0;
+// var smsCost = 0;
+// var total = 0;
+var settingsInstance = BillWithSettings()
+
 //add an event listener for when the 'Update settings' button is pressed
 updateSettings.addEventListener('click', function(){
-    callCostSettingReference= Number(callCostSetting.value);
-    smsCostSettingReference= Number(smsCostSetting.value);
-    warningLevelSettingReference= warningLevelSetting.value;
-    criticalLevelSettingReference= Number(criticalLevelSetting.value);
+    settingsInstance.setCallCost(Number(callCostSetting.value))
+    settingsInstance.setSmsCost(Number(smsCostSetting.value))
+    settingsInstance.setWarningLevel(Number (warningLevelSetting.value))
+    settingsInstance.setCriticalLevel(Number(criticalLevelSetting.value))
 
     colorChange()
 });
@@ -35,42 +37,29 @@ updateSettings.addEventListener('click', function(){
 function settingsBillTotal(){
     var settingsBtn = document.querySelector("input[name='billItemTypeWithSettings']:checked");
     if (settingsBtn){
-        if (total < criticalLevelSettingReference){
-            var billItem = settingsBtn.value
-            if (billItem === "call"){
-                callCost += callCostSettingReference;
-                total = callCostSettingReference;
-            }
-            else if(billItem === "sms"){
-                smsCost += smsCostSettingReference;
-                total = smsCostSettingReference;
-            }
+        if(settingsBtn.value==="call"){
+            settingsInstance.makeCall()
         }
+        else if(settingsBtn.value === "sms"){
+            settingsInstance.sendSms()
+        }
+
+       
    }
-   total = callCost + smsCost;
-   callTotalSettings.innerHTML = callCost.toFixed(2);
-   smsTotalSettings.innerHTML = smsCost.toFixed(2);
-   totalSettings.innerHTML = total.toFixed(2);
+   callTotalSettings.innerHTML =  (settingsInstance.getTotalCallCost()).toFixed(2);
+   smsTotalSettings.innerHTML = (settingsInstance.getTotalSmsCost()).toFixed(2);
+   totalSettings.innerHTML = (settingsInstance.getTotalCost()).toFixed(2);
    colorChange()
 }
 //add an event listener for when the add button is pressed
 radioBtn.addEventListener('click',settingsBillTotal);
 
 function colorChange(){
-    if (total >= criticalLevelSettingReference){
-        totalSettings.classList.add("danger");
         totalSettings.classList.remove("warning");
-    }
-    else if (total >= warningLevelSettingReference && total < criticalLevelSettingReference){
-        totalSettings.classList.remove("danger");
-        totalSettings.classList.add("warning");
-    }
-    else if (total < warningLevelSettingReference){
-        totalSettings.classList.remove("danger");
-        totalSettings.classList.remove("danger");
-    }
-   
+        totalSettings.classList.remove("critical");
+        totalSettings.classList.add(settingsInstance.totalClassName());
 
+   
 }
 //in the event listener get the value from the billItemTypeRadio radio buttons
 // * add the appropriate value to the call / sms total
